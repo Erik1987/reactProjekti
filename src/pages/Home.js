@@ -1,16 +1,20 @@
 import React, {Fragment, useState, useEffect } from "react";
 import EditTodo from "../components/EditTodo";
+import { useAuth } from "../context/Auth";
+
 const Home = () => {
-
+  
   const [description, setDescription] = useState("")
-
+  const { authTokens } = useAuth();
+  const header = {"Content-Type": 'application/json',
+  'Authorization': `Bearer ${authTokens}`}
   const onSubmitForm = async(e) => {
     e.preventDefault();
     try {
       const body = {description};
       const response = await fetch("http://localhost:5000/todos", {
         method: "POST", 
-        headers: {"Content-Type": "application/json"},
+        headers: header,
         body: JSON.stringify(body)
       });
       window.location = "/reactodo";
@@ -38,7 +42,8 @@ const Home = () => {
   const deleteTodo = async (id) => {
     try {
       const deleteTodo = await fetch(`http://localhost:5000/todos/${id}`, {
-       method: "DELETE" });
+       method: "DELETE",
+      headers: header });
       setTodos(todos.filter(todo => todo.todo_id !== id))
     } catch (err) {
       console.error(err.message)

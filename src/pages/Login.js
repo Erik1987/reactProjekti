@@ -26,11 +26,11 @@ function Login(props) {
  
 
   function postLogin(data) {
-      axios.post("http://localhost:5000/reactapi/signin",data).then(result => {
-      console.log(`result.status:${result.status}`)
-      if (result.status === 200 && result.data == 'OK') {
+      axios.post("http://localhost:5000/login",data).then(result => {
+      console.log(`result.status:${result.status}`, result)
+      if (result.status === 200 && result.data.token) {
         console.log('post result:',result.data)
-        setAuthTokens(result.data);
+        setAuthTokens(result.data.token);
         setLoggedIn(true);
       } else {
           setError(

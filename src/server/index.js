@@ -2,11 +2,32 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const pool = require("./db");
+const jwt = require('jsonwebtoken');
+const { expressjwt: exjwt } = require("express-jwt");
+const Helper = require('./helper.js')
+const User = require('./User.js')
 // middleware
 app.use(cors());
 app.use(express.json()); 
 
-app.post("/todos", async(req, res) => {
+const JWTSECRET = 'mango on hyvaa';
+const jwtMW = exjwt({
+    secret: JWTSECRET,
+    algorithms: ["HS256"],
+});
+
+const user = 
+    {
+        id: 1,
+        email: 'test@home.fi',
+        password: 'abc123'
+    };
+ 
+// LOGIN ROUTE
+app.post('/login', User.login);
+  
+
+app.post("/todos", jwtMW, async(req, res) => {
     try {
         const {description} = req.body;
         const newTodo = await pool.query("INSERT INTO todo (description) VALUES($1) RETURNING *", 
@@ -47,7 +68,7 @@ app.put("/todos/:id", async(req, res) => {
         console.error(err.message);
     }
 });
-app.delete("/todos/:id", async(req, res) => {
+app.delete("/todos/:id", jwtMW, async(req, res) => {
     try {
         const {id } = req.params;
         const deleteTodo = await pool.query("DELETE FROM todo WHERE todo_id = $1", [id]);
@@ -56,6 +77,10 @@ app.delete("/todos/:id", async(req, res) => {
         console.error(err.message);
     }
 })
+
+app.post('/signup', User.create);
+
+
 
 app.listen(5000, () => {
 

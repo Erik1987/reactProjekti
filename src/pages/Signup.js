@@ -14,11 +14,11 @@ function Signup() {
   
   function postSignup(data) {
     console.log("data:",data)
-    const url = "http://localhost:5000/reactapi/signup" 
+    const url = "http://localhost:5000/signup" 
     axios.post(url,data)
       //.then(result => result.json())
       .then(result => {         
-        if (result.status === 200 && result.data === "OK") {
+        if (result.status === 201) {
           setSignedUp(true);
         } else {
           //let x = Object.entries(result.data) 
@@ -54,16 +54,6 @@ function Signup() {
       {errors.email?.type === 'required' && <Error>Anna sähköpostiosoite</Error>} 
       {errors.email?.type === 'pattern'  && <Error>Virheellinen sähköpostiosoite</Error>}
       {errors.email?.type === 'palvelinvirhe' && <Error>{errors.email.message}</Error>} 
-      <Input 
-        placeholder="käyttäjätunnus"
-        {...register("username", { 
-          required: true,
-          minLength: 3
-         })}
-      /> 
-      {errors.username?.type === 'required' && <Error>Anna sähköpostiosoite</Error>} 
-      {errors.username?.type === 'minLength'  && <Error>Vähintään kolme merkkiä</Error>} 
-      {errors.username?.type === 'palvelinvirhe' && <Error>{errors.username.message}</Error>} 
       <Input 
         type="password" 
         placeholder="salasana" 
