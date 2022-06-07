@@ -87,7 +87,9 @@ app.delete("/todos/:id", jwtMW, async(req, res) => {
 
 app.post('/signup', User.create);
 
-
+app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "build", "index.html"));
+  });
 
 app.listen(PORT, () => {
 
