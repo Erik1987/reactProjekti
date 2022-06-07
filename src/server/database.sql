@@ -10,3 +10,10 @@ CREATE TABLE users(
     email VARCHAR(255),
     password VARCHAR(255)
 );
+
+CREATE TABLE IF NOT EXISTS
+      users(
+        id UUID PRIMARY KEY,
+        email VARCHAR(128) UNIQUE NOT NULL,
+        password VARCHAR(128) NOT NULL
+      );
