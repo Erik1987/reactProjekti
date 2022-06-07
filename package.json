@@ -32,8 +32,7 @@
     "styled-components": "^5.3.3",
     "uuid": "^8.3.2",
     "uuidv4": "^6.2.13",
-    "web-vitals": "^1.0.1",
-    "main": "index.js"
+    "web-vitals": "^1.0.1"
   },"engines": {
     "node": "16.14.2",
     "npm": "8.5.0"
