@@ -14,7 +14,7 @@ function Signup() {
   
   function postSignup(data) {
     console.log("data:",data)
-    const url = "http://localhost:5000/signup" 
+    const url = "/signup" 
     axios.post(url,data)
       //.then(result => result.json())
       .then(result => {         

@@ -26,7 +26,7 @@ function Login(props) {
  
 
   function postLogin(data) {
-      axios.post("http://localhost:5000/login",data).then(result => {
+      axios.post("/login",data).then(result => {
       console.log(`result.status:${result.status}`, result)
       if (result.status === 200 && result.data.token) {
         console.log('post result:',result.data)

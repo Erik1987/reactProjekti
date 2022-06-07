@@ -6,9 +6,16 @@ const jwt = require('jsonwebtoken');
 const { expressjwt: exjwt } = require("express-jwt");
 const Helper = require('./helper.js')
 const User = require('./User.js')
+const PORT = process.env.PORT || 5000;
+const path = require('path')
 // middleware
 app.use(cors());
 app.use(express.json()); 
+
+if(process.env.NODE_ENV === "production") {
+    // client/build
+    app.use(express.static(path.join(__dirname, "build")))
+}
 
 const JWTSECRET = 'mango on hyvaa';
 const jwtMW = exjwt({
@@ -82,7 +89,7 @@ app.post('/signup', User.create);
 
 
 
-app.listen(5000, () => {
+app.listen(PORT, () => {
 
-    console.log("Server has started in port 5000");
+    console.log(`Server has started in port ${PORT}`);
 });

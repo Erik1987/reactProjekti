@@ -13,7 +13,7 @@ import Footer from "./components/Footer";
 import logoImg from "./img/logo.png";
 import gardenImg from "./img/pexels-garden.jpg";
 import axios from "axios";
-const closeUrl = 'http://localhost:5000/logout'
+const closeUrl = '/logout'
 function App(props) {
   //const existingTokens = JSON.parse(localStorage.getItem("tokens") || '');
   //const [authTokens, setAuthTokens] = useState(JSON.parse(localStorage.getItem("tokens") || ''));
